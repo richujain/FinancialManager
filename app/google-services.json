@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "809063834001",
+    "firebase_url": "https://financial-manager-f352e.firebaseio.com",
+    "project_id": "financial-manager-f352e",
+    "storage_bucket": "financial-manager-f352e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:809063834001:android:e6d26eb1ba084a80e13a30",
+        "android_client_info": {
+          "package_name": "com.webandrios.financialmanager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "809063834001-hugtba5u58ebtmkm9qfvu8ffd4e5fdd7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDsKd5otObOcBhqwCbGu4PTf7f1oCmVBjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "809063834001-hugtba5u58ebtmkm9qfvu8ffd4e5fdd7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
