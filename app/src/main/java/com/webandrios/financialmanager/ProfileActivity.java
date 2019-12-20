@@ -18,12 +18,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.webandrios.financialmanager.Fragments.DebtsFragment;
+import com.webandrios.financialmanager.Fragments.ExpenseFragment;
+import com.webandrios.financialmanager.Fragments.HomeFragment;
+import com.webandrios.financialmanager.Fragments.IncomeFragment;
 
 import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
     FirebaseUser firebaseUser;
     FirebaseAuth mAuth;
+    FlareBar bottomBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +49,14 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void flareBar() {
-        final FlareBar bottomBar = findViewById(R.id.bottomBar);
+        bottomBar = findViewById(R.id.bottomBar);
         bottomBar.setBarBackgroundColor(Color.parseColor("#FFFFFF"));
         ArrayList<Flaretab> tabs = new ArrayList<>();
-        tabs.add(new Flaretab(getResources().getDrawable(R.drawable.inboxb),"Home","#FFECB3"));
-        tabs.add(new Flaretab(getResources().getDrawable(R.drawable.searchb),"Income","#80DEEA"));
-        tabs.add(new Flaretab(getResources().getDrawable(R.drawable.phoneb),"Expense","#B39DDB"));
-        tabs.add(new Flaretab(getResources().getDrawable(R.drawable.avatarb),"Debts","#EF9A9A"));
-        tabs.add(new Flaretab(getResources().getDrawable(R.drawable.settingsb),"Credit","#B2DFDB"));
+        tabs.add(new Flaretab(getResources().getDrawable(R.drawable.home),"Home","#FFECB3"));
+        tabs.add(new Flaretab(getResources().getDrawable(R.drawable.income),"Income","#80DEEA"));
+        tabs.add(new Flaretab(getResources().getDrawable(R.drawable.expense),"Expense","#B39DDB"));
+        tabs.add(new Flaretab(getResources().getDrawable(R.drawable.debt),"Debts","#EF9A9A"));
+        //tabs.add(new Flaretab(getResources().getDrawable(R.drawable.settingsb),"Credit","#B2DFDB"));
 
         bottomBar.setTabList(tabs);
         bottomBar.attachTabs(ProfileActivity.this);
@@ -59,25 +64,24 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onTabChanged(LinearLayout selectedTab, int selectedIndex, int oldIndex) {
                 //tabIndex starts from 0 (zero). Example : 4 tabs = last Index - 3
-                Toast.makeText(ProfileActivity.this,"Tab "+ selectedIndex+" Selected.",Toast.LENGTH_SHORT).show();
 
                 Fragment fragment = null;
 
                 switch (selectedIndex) {
                     case 0:
-                        //fragment = new HomeFragment();
+                        fragment = new HomeFragment();
                         break;
 
                     case 1:
-                        //fragment = new SearchFragment();
+                        fragment = new IncomeFragment();
                         break;
 
                     case 2:
-                       // fragment = new TransferFragment();
+                        fragment = new ExpenseFragment();
                         break;
 
                     case 3:
-                        //fragment = new BankStatement();
+                        fragment = new DebtsFragment();
                         break;
                     case 4:
                         //fragment = new ProfileFragment();
@@ -86,12 +90,23 @@ public class ProfileActivity extends AppCompatActivity {
                         //fragment = new SettingsFragment();
                         break;
                 }
-               // loadFragment(fragment);
+                loadFragment(fragment);
 
             }
         });
+        loadFragment(new HomeFragment());
     }
 
-
+    private boolean loadFragment(Fragment fragment) {
+        //switching fragment
+        if (fragment != null) {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.containerParent, fragment)
+                    .commit();
+            return true;
+        }
+        return false;
+    }
 
 }

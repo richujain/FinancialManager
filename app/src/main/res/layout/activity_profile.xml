@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/containerParent"
     android:layout_height="match_parent"
     tools:context=".ProfileActivity">
 
@@ -17,12 +18,16 @@
         android:text="LOGOUT"
         android:textAllCaps="false"
         android:textColor="#cdd8f1" />
-
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/container"
+        android:layout_height="wrap_content">
     <com.flarebit.flarebarlib.FlareBar
         android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"/>
+        android:layout_height="wrap_content"/>
+    </FrameLayout>
 
 
 </RelativeLayout>
