@@ -1,8 +1,10 @@
 package com.webandrios.financialmanager;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
@@ -11,6 +13,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -18,8 +21,7 @@ import android.widget.Toast;
 import com.flarebit.flarebarlib.FlareBar;
 import com.flarebit.flarebarlib.Flaretab;
 import com.flarebit.flarebarlib.TabEventObject;
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.webandrios.financialmanager.Fragments.DebtsFragment;
@@ -29,7 +31,7 @@ import com.webandrios.financialmanager.Fragments.IncomeFragment;
 
 import java.util.ArrayList;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     FirebaseUser firebaseUser;
     FirebaseAuth mAuth;
     FlareBar bottomBar;
@@ -47,13 +49,12 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
         drawerLayout = findViewById(R.id.drawerLayout);
+        setNavigationViewListener();
         flareBar();
         setToolBar();
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
         String uid = firebaseUser.getUid();
-        Toast.makeText(this, "UID is : "+uid, Toast.LENGTH_SHORT).show();
-        Log.v("UID",""+uid);
     }
 
     private void setToolBar() {
@@ -69,6 +70,8 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
     private void flareBar() {
@@ -130,6 +133,31 @@ public class ProfileActivity extends AppCompatActivity {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        // Handle navigation view item clicks here.
+        switch (item.getItemId()) {
+
+            case R.id.navSettings: {
+                Toast.makeText(this, "Stop is clicked", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.navLogout: {
+                Toast.makeText(this, "Nav Home", Toast.LENGTH_SHORT).show();
+                break;
+
+            }
+        }
+        //close navigation drawer
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    private void setNavigationViewListener() {
+        NavigationView navigationView = findViewById(R.id.navigation_view_drawer);
+        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setItemIconTintList(null);
     }
 
 }
