@@ -100,6 +100,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         @Override
         public void onCodeSent(@NonNull String s, @NonNull PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             verificationId = s;
+            Toast.makeText(VerifyPhoneActivity.this, "Verification ID: "+s, Toast.LENGTH_SHORT).show();
         }
 
         @Override
