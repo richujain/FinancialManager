@@ -140,12 +140,24 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         // Handle navigation view item clicks here.
         switch (item.getItemId()) {
 
-            case R.id.navSettings: {
-                Toast.makeText(this, "Stop is clicked", Toast.LENGTH_SHORT).show();
+            case R.id.navAboutUs: {
+                Toast.makeText(this, "About Us", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.navContactUs: {
+                Toast.makeText(this, "Contact Us", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.navReportProblem: {
+                Toast.makeText(this, "Report Problem", Toast.LENGTH_SHORT).show();
+                break;
+            }
+            case R.id.navSuggestions: {
+                Toast.makeText(this, "Suggestions", Toast.LENGTH_SHORT).show();
                 break;
             }
             case R.id.navLogout: {
-                Toast.makeText(this, "Nav Home", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
                 break;
 
             }

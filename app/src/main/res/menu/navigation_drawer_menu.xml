@@ -1,11 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
-        <item android:id="@+id/navSettings"
-            android:title="Settings"
-            android:icon="@drawable/home" />
-        <item android:id="@+id/navLogout"
-            android:title="Logout"
-            android:icon="@drawable/logout" />
+
     </group>
+
+    <item android:id="@+id/navAboutUs"
+        android:title="About US"
+        android:icon="@drawable/about_us" />
+    <item android:id="@+id/navContactUs"
+        android:title="Contact US"
+        android:icon="@drawable/contact_us" />
+    <item android:id="@+id/navSuggestions"
+        android:title="Suggestions"
+        android:icon="@drawable/suggestions" />
+    <item android:id="@+id/navReportProblem"
+        android:title="Report Problem"
+        android:icon="@drawable/report_problem" />
+    <item android:id="@+id/navLogout"
+        android:title="Logout"
+        android:icon="@drawable/logout" />
 </menu>
