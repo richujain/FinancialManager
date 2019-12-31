@@ -13,9 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".GetUserDetails"></activity>
+        <activity android:name=".AboutActivity" />
         <activity
-            android:name=".ProfileActivity" android:theme="@style/no_action_bar"/>
+            android:name=".ProfileActivity"
+            android:theme="@style/no_action_bar" />
         <activity android:name=".VerifyPhoneActivity" />
         <activity android:name=".LoginScreen" />
         <activity

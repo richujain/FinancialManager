@@ -16,6 +16,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.flarebit.flarebarlib.FlareBar;
@@ -24,6 +25,11 @@ import com.flarebit.flarebarlib.TabEventObject;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.webandrios.financialmanager.Fragments.DebtsFragment;
 import com.webandrios.financialmanager.Fragments.ExpenseFragment;
 import com.webandrios.financialmanager.Fragments.HomeFragment;
@@ -35,8 +41,10 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     FirebaseUser firebaseUser;
     FirebaseAuth mAuth;
     FlareBar bottomBar;
+    private DatabaseReference mDatabase;
     DrawerLayout drawerLayout;
     Toolbar toolbar;
+    String uid,name,contact;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -48,15 +56,38 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 startActivity(new Intent(ProfileActivity.this, LoginScreen.class));
             }
         });
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         drawerLayout = findViewById(R.id.drawerLayout);
         setNavigationViewListener();
         flareBar();
         setToolBar();
         mAuth = FirebaseAuth.getInstance();
         firebaseUser = mAuth.getCurrentUser();
-        String uid = firebaseUser.getUid();
+        getUserDetails();
     }
 
+    private void getUserDetails(){
+        this.uid = firebaseUser.getUid();
+        ValueEventListener postListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                NavigationView navigationView = findViewById(R.id.navigation_view_drawer);
+                View headerView = navigationView.getHeaderView(0);
+                TextView profileContact = headerView.findViewById(R.id.profileContact);
+                TextView profileName = headerView.findViewById(R.id.profileName);
+                name = dataSnapshot.child("users").child(uid).child("name").getValue(String.class);
+                contact = dataSnapshot.child("users").child(uid).child("contact").getValue(String.class);
+                profileContact.setText(contact);
+                profileName.setText(name);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Getting Post failed, log a message
+            }
+        };
+        mDatabase.addValueEventListener(postListener);
+    }
     private void setToolBar() {
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -157,7 +188,8 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
                 break;
             }
             case R.id.navLogout: {
-                Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(ProfileActivity.this,LoginScreen.class));
                 break;
 
             }

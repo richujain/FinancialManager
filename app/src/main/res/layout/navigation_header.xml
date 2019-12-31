@@ -22,6 +22,7 @@
         android:layout_height="wrap_content"
         android:text="Richu Jain"
         android:paddingTop="8dp"
+        android:id="@+id/profileName"
         android:textColor="#FFFFFF"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"/>
 
@@ -29,6 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="richupulimoottil@gmail.com"
+        android:id="@+id/profileContact"
         android:paddingTop="4dp"
         android:textColor="#FFFFFF"
         />

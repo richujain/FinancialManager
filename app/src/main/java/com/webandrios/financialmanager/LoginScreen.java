@@ -26,12 +26,14 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class LoginScreen extends AppCompatActivity {
 
     private Spinner spinner;
     private EditText mobileEditText;
-
+    private FirebaseDatabase database;
     private SignInButton signInButton;
     GoogleSignInClient googleSignInClient;
     private int RC_SIGN_IN = 1;
@@ -41,6 +43,7 @@ public class LoginScreen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_screen);
+
         checkLoginStatus();
         init();
     }
@@ -54,6 +57,7 @@ public class LoginScreen extends AppCompatActivity {
     }
 
     private void init(){
+        database =  FirebaseDatabase.getInstance();
         spinner = findViewById(R.id.spinnerCountries);
         spinner.setAdapter(new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item,CountryData.countryNames));
         spinner.setSelection(30, true);
@@ -121,10 +125,11 @@ public class LoginScreen extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
                     Toast.makeText(LoginScreen.this, "Success", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(LoginScreen.this, ProfileActivity.class);
-                    startActivity(intent);
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     updateUI(firebaseUser);
+                    Intent intent = new Intent(LoginScreen.this, ProfileActivity.class);
+                    startActivity(intent);
+                    finish();
                 }else{
                     Toast.makeText(LoginScreen.this, "Failed", Toast.LENGTH_SHORT).show();
                     updateUI(null);
@@ -138,6 +143,11 @@ public class LoginScreen extends AppCompatActivity {
             String personName = googleSignInAccount.getDisplayName();
             String personId = googleSignInAccount.getId();
             String personEmail = googleSignInAccount.getEmail();
+            String uid = firebaseUser.getUid();
+            DatabaseReference mRef =  database.getReference().child("users").child(uid);
+            mRef.child("contact").setValue(personEmail);
+            mRef.child("name").setValue(personName);
+            mRef.child("googleid").setValue(personId);
 
         }
     }
