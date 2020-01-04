@@ -5,10 +5,10 @@
     </group>
 
     <item android:id="@+id/navAboutUs"
-        android:title="About US"
+        android:title="About Us"
         android:icon="@drawable/about_us" />
     <item android:id="@+id/navContactUs"
-        android:title="Contact US"
+        android:title="Contact Us"
         android:icon="@drawable/contact_us" />
     <item android:id="@+id/navSuggestions"
         android:title="Suggestions"
