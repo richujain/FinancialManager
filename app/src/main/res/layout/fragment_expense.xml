@@ -3,12 +3,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Fragments.ExpenseFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_marginBottom="75dp"
+        android:layout_marginTop="75dp"
+
+        android:id="@+id/recyclerView">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/eFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="55dp"
+        android:layout_marginBottom="100dp"
+        app:srcCompat="@drawable/plus"
+        app:elevation="6dp"
+        android:scaleType="fitCenter"
+        app:maxImageSize="56dp"
+        android:backgroundTint="#ffffff"
+        app:pressedTranslationZ="12dp"/>
 
 </FrameLayout>

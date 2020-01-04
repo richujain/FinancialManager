@@ -20,48 +20,48 @@
             android:scaleType="centerCrop"
             android:layout_margin="15dp"
             android:visibility="visible"
-            android:id="@+id/billImage"
+            android:id="@+id/expenseBillImage"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/incomeTitle"
+            android:id="@+id/expenseTitle"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="7dp"
             android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:text="This is a Title"
             android:gravity="center"
-            android:layout_toRightOf="@+id/billImage"
+            android:layout_toRightOf="@+id/expenseBillImage"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/incomeAmount"
+            android:id="@+id/expenseAmount"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="7dp"
             android:textStyle="bold"
             android:gravity="center"
-            android:layout_toRightOf="@+id/billImage"
+            android:layout_toRightOf="@+id/expenseBillImage"
             android:textSize="15sp"
             android:textAppearance="@style/ShapeAppearance.MaterialComponents.LargeComponent"
             android:text="$100.25"
-            android:layout_below="@+id/incomeTitle"
+            android:layout_below="@+id/expenseTitle"
             />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/incomeDate"
+            android:id="@+id/expenseDate"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="7dp"
             android:gravity="center"
-            android:layout_toRightOf="@+id/billImage"
+            android:layout_toRightOf="@+id/expenseBillImage"
             android:textSize="15sp"
             android:text="Posted On 2019/01/01"
-            android:layout_below="@+id/incomeAmount"
+            android:layout_below="@+id/expenseAmount"
             />
 
 

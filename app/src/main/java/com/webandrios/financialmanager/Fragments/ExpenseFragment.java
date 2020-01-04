@@ -4,38 +4,130 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.webandrios.financialmanager.ListForRecyclerView;
+import com.webandrios.financialmanager.ProfileActivity;
 import com.webandrios.financialmanager.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * to handle interaction events.
- * Use the {@link ExpenseFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import de.hdodenhof.circleimageview.CircleImageView;
+
+
 public class ExpenseFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    /******************************************************************************/
+    FirebaseUser firebaseUser;
+    FirebaseAuth mAuth;
+    String uid = "";
+    private RecyclerView recyclerView;
+    private DatabaseReference databaseReference;
 
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        mAuth = FirebaseAuth.getInstance();
+        firebaseUser = mAuth.getCurrentUser();
+        this.uid = firebaseUser.getUid();
+        databaseReference = FirebaseDatabase.getInstance().getReference().child("users").child(uid).child("expense");
+        databaseReference.keepSynced(true);
+        recyclerView = getView().findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        FloatingActionButton fab = getView().findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseRecyclerAdapter<ListForRecyclerView,ListViewHolder> firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ListForRecyclerView, ListViewHolder>
+                (ListForRecyclerView.class,R.layout.recyclerview_row_expense,ListViewHolder.class,databaseReference) {
+            @Override
+            protected void populateViewHolder(ListViewHolder listViewHolder, ListForRecyclerView listForRecyclerView, int i) {
+
+
+                listViewHolder.setName(listForRecyclerView.getName());
+                listViewHolder.setDate(listForRecyclerView.getDate());
+                listViewHolder.setAmount(listForRecyclerView.getAmount());
+                listViewHolder.setImage(getContext(),listForRecyclerView.getImageUrl());
+
+
+
+            }
+        };
+        recyclerView.setAdapter(firebaseRecyclerAdapter);
+    }
+
+    public static class ListViewHolder extends RecyclerView.ViewHolder{
+        View view;
+        public ListViewHolder(View itemView){
+            super(itemView);
+            view = itemView;
+        }
+        public void setName(String name){
+            TextView incomeName = view.findViewById(R.id.expenseTitle);
+            incomeName.setText(name);
+        }
+        public void setDate(String date){
+            TextView incomeDate = view.findViewById(R.id.expenseDate);
+            incomeDate.setText(date);
+        }
+        public void setAmount(String amount){
+            TextView incomeAmount = view.findViewById(R.id.expenseAmount);
+            incomeAmount.setText(amount);
+        }
+        public void setImage(Context ctx, String imageUrl){
+            CircleImageView billImage = view.findViewById(R.id.expenseBillImage);
+            if (!imageUrl.isEmpty()){
+                billImage.setVisibility(View.VISIBLE);
+                Glide.with(ctx).load(imageUrl).into(billImage);
+            }
+            else{
+                billImage.setVisibility(View.GONE);
+            }
+
+        }
+    }
+
+
+
+    /*************************************************************************************/
 
     public ExpenseFragment() {
         // Required empty public constructor
     }
-    // TODO: Rename and change types and number of parameters
-    public static ExpenseFragment newInstance(String param1, String param2) {
-        ExpenseFragment fragment = new ExpenseFragment();
+
+    public static IncomeFragment newInstance(String param1, String param2) {
+        IncomeFragment fragment = new IncomeFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -50,14 +142,21 @@ public class ExpenseFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
     }
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_expense, container, false);
+        return inflater.inflate(R.layout.fragment_income, container, false);
     }
+
+
+
+
 
 
 }
