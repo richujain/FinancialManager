@@ -8,10 +8,13 @@
     >
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <view class="androidx.appcompat.app.AlertController$RecycleListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_margin="5dp"
+        android:id="@+id/recyclerView">
+
+    </view>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
@@ -19,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="55dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginBottom="100dp"
         app:srcCompat="@drawable/plus"
         app:elevation="6dp"
         android:scaleType="fitCenter"
